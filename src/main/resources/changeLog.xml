@@ -33,11 +33,12 @@
         <sql>
             CREATE TABLE `device`
             (
-            `serial_number` VARCHAR(255) NOT NULL UNIQUE,
-            `device_type_id` BIGINT,
-            `device_model_id` BIGINT,
+            `id`                   SERIAL,
+            `serial_number`        VARCHAR(255) NOT NULL UNIQUE,
+            `device_type_id`       BIGINT,
+            `device_model_id`      BIGINT,
             `observation_point_id` BIGINT,
-            PRIMARY KEY (serial_number)
+            PRIMARY KEY (`id`)
             );
         </sql>
     </changeSet>
@@ -84,24 +85,26 @@
         <sql>
             CREATE TABLE `sensor`
             (
-            `id`                   SERIAL,
-            `sensor_number`        TINYINT,
-            `device_serial_number` VARCHAR(255),
-            `name`                 VARCHAR(255),
-            `measure_unit_id`      BIGINT,
-            PRIMARY KEY (`id`),
-            UNIQUE KEY `device_serial_number` (`device_serial_number`, `sensor_number`)
+            `number`          TINYINT,
+            `device_id`       BIGINT,
+            `name`            VARCHAR(255),
+            `measure_unit_id` BIGINT,
+            PRIMARY KEY (`device_id`, `number`),
+            UNIQUE KEY `device_id` (`device_id`, `number`)
             );
         </sql>
     </changeSet>
 
     <changeSet id="8" author="Renat">
         <sql>
-            CREATE TABLE `sensor_value` (
-            `sensor_id`       BIGINT,
-            `local_date_time` TIMESTAMP,
-            `value`           DOUBLE,
-            PRIMARY KEY (`sensor_id`, `local_date_time`)
+            CREATE TABLE `sensor_value`
+            (
+            `sensor_device_id` BIGINT,
+            `sensor_number`    TINYINT,
+            `local_date_time`  TIMESTAMP,
+            `value`            DOUBLE,
+            PRIMARY KEY (`sensor_number`, `sensor_device_id`, `local_date_time`),
+            UNIQUE `sensor_number` (`sensor_number`, `sensor_device_id`, `local_date_time`)
             );
         </sql>
     </changeSet>

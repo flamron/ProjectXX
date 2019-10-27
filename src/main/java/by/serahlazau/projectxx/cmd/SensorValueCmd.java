@@ -6,5 +6,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class SensorValueCmd {
-
+    private Byte sensorNumber;
+    private Double value;
 }

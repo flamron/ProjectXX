@@ -18,12 +18,12 @@ public class UnitOfMeasure {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @Column
-    String shortName;
+    private String shortName;
 
     @Column
-    String fullName;
+    private String fullName;
 
 }

@@ -19,15 +19,15 @@ import java.util.Set;
 public class DeviceModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @Column
-    String name;
+    private String name;
 
     @ManyToOne
-    Manufacturer manufacturer;
+    private Manufacturer manufacturer;
 
     @OneToMany(mappedBy = "deviceModel")
-    Set<Device> devices;
+    private Set<Device> devices;
 
 }

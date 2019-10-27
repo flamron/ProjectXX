@@ -2,6 +2,7 @@ package by.serahlazau.projectxx.pojo;
 
 import by.serahlazau.projectxx.pojo.Device;
 import by.serahlazau.projectxx.pojo.UnitOfMeasure;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -23,25 +24,32 @@ import java.util.Set;
 @Entity
 public class Sensor {
 
-    @Id
+   /* @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;*/
+
+    @EmbeddedId
+    SensorId id;
 
     @Column
-    String name;
+    private String name;
 
     @ManyToOne
     @JoinColumn(name = "measure_unit_id")
-    UnitOfMeasure unitOfMeasure;
+    private UnitOfMeasure unitOfMeasure;
 
     @OneToMany(mappedBy = "id.sensor")
-    Set<SensorValue> values;
+    private Set<SensorValue> values;
 
-    @Column(name = "sensor_number")
-    Byte number;
+    @Data
+    @AllArgsConstructor
+    @Embeddable
+    public static class SensorId implements Serializable {
+        @Column
+        private Byte number;
 
-    @ManyToOne
-    @JoinColumn(name = "device_serial_number")
-    Device device;
+        @ManyToOne
+        private Device device;
+    }
 
 }

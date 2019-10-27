@@ -2,6 +2,7 @@ package by.serahlazau.projectxx.controller;
 
 import by.serahlazau.projectxx.service.DeviceTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,10 +14,14 @@ public class Root
     @Autowired
     DeviceTypeService deviceTypeService;
 
+    /*@Value("${deviceValueService.NoSuchSensorPresent}")
+    String val1;*/
+
     @RequestMapping("/")
     String home() {
-        deviceTypeService.createNewDeviceType();
-        return "Hello World!";
+        //deviceTypeService.createNewDeviceType();
+
+        return "Hello";
     }
 
 }

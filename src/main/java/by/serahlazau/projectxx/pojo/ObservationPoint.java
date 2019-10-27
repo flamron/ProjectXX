@@ -18,23 +18,23 @@ public class ObservationPoint {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @Column
-    String shortName;
+    private String shortName;
 
     @Column
-    String fullName;
+    private String fullName;
 
     @Column
-    Float latitude;
+    private Float latitude;
 
     @Column
-    Float longitude;
+    private Float longitude;
 
     @Column
-    Float high;
+    private Float high;
 
     @OneToMany(mappedBy = "observationPoint")
-    Set<Device> devices;
+    private Set<Device> devices;
 }

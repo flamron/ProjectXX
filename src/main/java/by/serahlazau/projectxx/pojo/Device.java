@@ -3,6 +3,7 @@ package by.serahlazau.projectxx.pojo;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,19 +17,23 @@ import java.util.Set;
 @Entity
 public class Device {
     @Id
-    String serialNumber;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column
+    private String serialNumber;
 
     @ManyToOne
-    DeviceType deviceType;
+    private DeviceType deviceType;
 
     @ManyToOne
-    DeviceModel deviceModel;
+    private DeviceModel deviceModel;
 
-    @OneToMany(mappedBy = "device")
-    Set<Sensor> sensors;
+    @OneToMany(mappedBy = "id.device")
+    private Set<Sensor> sensors;
 
     @ManyToOne
-    ObservationPoint observationPoint;
+    private ObservationPoint observationPoint;
 
 
 }

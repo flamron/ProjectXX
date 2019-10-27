@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -18,23 +19,22 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Entity
 public class SensorValue {
-    /*@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;*/
 
     @EmbeddedId
-    SensorValueId id;
+    private SensorValueId id;
 
     @Column
-    Double value;
+    private Double value;
 
+    @Data
+    @NoArgsConstructor
     @Embeddable
     public static class SensorValueId implements Serializable {
         @ManyToOne
-        Sensor sensor;
+        private Sensor sensor;
 
         @Column
-        LocalDateTime localDateTime;
+        private LocalDateTime localDateTime;
 
     }
 
