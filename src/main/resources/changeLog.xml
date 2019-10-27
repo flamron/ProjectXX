@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="1" author="Renat">
+        <sql>
+            CREATE TABLE `device_model`
+            (
+            `id` SERIAL,
+            `name` VARCHAR(255),
+            `manufacturer_id` BIGINT,
+            PRIMARY KEY (id)
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="2" author="Renat">
+        <sql>
+            CREATE TABLE `manufacturer`
+            (
+            `id` SERIAL,
+            `name` VARCHAR(255),
+            PRIMARY KEY (id)
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="3" author="Renat">
+        <sql>
+            CREATE TABLE `device`
+            (
+            `serial_number` VARCHAR(255) NOT NULL UNIQUE,
+            `device_type_id` BIGINT,
+            `device_model_id` BIGINT,
+            `observation_point_id` BIGINT,
+            PRIMARY KEY (serial_number)
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="4" author="Renat">
+        <sql>
+            CREATE TABLE `device_type`
+            (
+            `id` SERIAL,
+            `name` VARCHAR(255),
+            PRIMARY KEY (id)
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="5" author="Renat">
+        <sql>
+            CREATE TABLE `measure_unit`
+            (
+            `id` SERIAL,
+            `short_name` VARCHAR(10),
+            `full_name` VARCHAR(255),
+            PRIMARY KEY (id)
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="6" author="Renat">
+        <sql>
+            CREATE TABLE `observation_point`
+            (
+            `id` SERIAL,
+            `short_name` VARCHAR(10),
+            `full_name` VARCHAR(255),
+            `latitude` FLOAT(7, 4),
+            `longitude` FLOAT(7, 4),
+            `high` FLOAT,
+            PRIMARY KEY (id)
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="7" author="Renat">
+        <sql>
+            CREATE TABLE `sensor`
+            (
+            `id`                   SERIAL,
+            `sensor_number`        TINYINT,
+            `device_serial_number` VARCHAR(255),
+            `name`                 VARCHAR(255),
+            `measure_unit_id`      BIGINT,
+            PRIMARY KEY (`id`),
+            UNIQUE KEY `device_serial_number` (`device_serial_number`, `sensor_number`)
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="8" author="Renat">
+        <sql>
+            CREATE TABLE `sensor_value` (
+            `sensor_id`       BIGINT,
+            `local_date_time` TIMESTAMP,
+            `value`           DOUBLE,
+            PRIMARY KEY (`sensor_id`, `local_date_time`)
+            );
+        </sql>
+    </changeSet>
+
+
+</databaseChangeLog>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
