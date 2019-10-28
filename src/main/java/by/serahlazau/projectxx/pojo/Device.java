@@ -5,11 +5,16 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 @Data
@@ -30,7 +35,8 @@ public class Device {
     private DeviceModel deviceModel;
 
     @OneToMany(mappedBy = "id.device")
-    private Set<Sensor> sensors;
+    @MapKey(name = "id.number")
+    private Map<Byte, Sensor> sensorsMap = new HashMap<>();
 
     @ManyToOne
     private ObservationPoint observationPoint;

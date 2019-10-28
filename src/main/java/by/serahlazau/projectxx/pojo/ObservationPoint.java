@@ -2,6 +2,7 @@ package by.serahlazau.projectxx.pojo;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -35,6 +37,7 @@ public class ObservationPoint {
     @Column
     private Float high;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "observationPoint")
-    private Set<Device> devices;
+    private Set<Device> devices = new HashSet<>();
 }

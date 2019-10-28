@@ -33,10 +33,10 @@
         <sql>
             CREATE TABLE `device`
             (
-            `id`                   SERIAL,
-            `serial_number`        VARCHAR(255) NOT NULL UNIQUE,
-            `device_type_id`       BIGINT,
-            `device_model_id`      BIGINT,
+            `id` SERIAL,
+            `serial_number` VARCHAR(255) NOT NULL UNIQUE,
+            `device_type_id` BIGINT,
+            `device_model_id` BIGINT,
             `observation_point_id` BIGINT,
             PRIMARY KEY (`id`)
             );
@@ -85,9 +85,9 @@
         <sql>
             CREATE TABLE `sensor`
             (
-            `number`          TINYINT,
-            `device_id`       BIGINT,
-            `name`            VARCHAR(255),
+            `number` TINYINT,
+            `device_id` BIGINT,
+            `name` VARCHAR(255),
             `measure_unit_id` BIGINT,
             PRIMARY KEY (`device_id`, `number`),
             UNIQUE KEY `device_id` (`device_id`, `number`)
@@ -100,15 +100,55 @@
             CREATE TABLE `sensor_value`
             (
             `sensor_device_id` BIGINT,
-            `sensor_number`    TINYINT,
-            `local_date_time`  TIMESTAMP,
-            `value`            DOUBLE,
+            `sensor_number` TINYINT,
+            `local_date_time` TIMESTAMP,
+            `value` DOUBLE,
             PRIMARY KEY (`sensor_number`, `sensor_device_id`, `local_date_time`),
             UNIQUE `sensor_number` (`sensor_number`, `sensor_device_id`, `local_date_time`)
             );
         </sql>
     </changeSet>
 
+    <changeSet id="9" author="Renat">
+        <sql>
+            ALTER TABLE `device_model`
+            ADD UNIQUE INDEX `name_UNIQUE` (`name` ASC);
+        </sql>
+    </changeSet>
+
+    <changeSet id="10" author="Renat">
+        <sql>
+            ALTER TABLE `device_type`
+            ADD UNIQUE INDEX `name_UNIQUE` (`name` ASC);
+        </sql>
+    </changeSet>
+
+    <changeSet id="11" author="Renat">
+        <sql>
+            ALTER TABLE `manufacturer`
+            ADD UNIQUE INDEX `name_UNIQUE` (`name` ASC);
+        </sql>
+    </changeSet>
+
+    <changeSet id="12" author="Renat">
+        <sql>
+            ALTER TABLE `projectxx`.`measure_unit`
+            ADD UNIQUE INDEX `short_name_UNIQUE` (`short_name` ASC),
+            ADD UNIQUE INDEX `full_name_UNIQUE` (`full_name` ASC);
+        </sql>
+    </changeSet>
+
+    <changeSet id="13" author="Renat">
+        <sql>
+            ALTER TABLE `observation_point`
+            ADD UNIQUE INDEX `short_name_UNIQUE` (`short_name` ASC);
+        </sql>
+    </changeSet>
+
+    <!--<changeSet id="" author="Renat">
+        <sql>
+        </sql>
+    </changeSet>-->
 
 </databaseChangeLog>
 

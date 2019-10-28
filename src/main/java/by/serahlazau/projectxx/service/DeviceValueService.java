@@ -16,10 +16,14 @@ import org.springframework.context.annotation.PropertySources;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class DeviceValueService {
+
     private static final Logger logger = LogManager.getLogger();
 
     @Autowired
@@ -31,47 +35,49 @@ public class DeviceValueService {
     @Autowired
     SensorValueRepository sensorValueRepository;
 
-    private boolean validateSerialNumber(String serialNumber) {
+    /*private boolean validateSerialNumber(String serialNumber) {
         return deviceRepository.existsById(serialNumber);
-    }
+    }*/
 
     /*@Value("${deviceValueService.NoSuchSensorPresent}")
     String val1;*/
 
     public void addNewDeviceValues(DeviceValuesCmd deviceValuesCmd) {
 
-        /*Optional<Device> od = deviceRepository.findById(deviceValuesCmd.getSerialNumber());
-        // If device serial number is valid
-        if (od.isPresent()) {
+        String deviceSerialNumber = deviceValuesCmd.getSerialNumber();
+        logger.info("Begin");
+        Optional<Device> od = deviceRepository.findBySerialNumber(deviceSerialNumber);
+        logger.info("End");
+        if (od.isPresent()) {  // If device serial number is valid
             Device device = od.get();
-            // For every sensor in this device
-            for (SensorValueCmd cmd : deviceValuesCmd.getSensorValues()) {
-                Byte sensorNumber = cmd.getSensorNumber();
-                Double value = cmd.getValue();
-                Sensor.SensorId sensorId = new Sensor.SensorId(sensorNumber, device);
-                Optional<Sensor> os = sensorRepository.findById(sensorId);
-                // If sensor id is valid
-                if (os.isPresent()) {
-                    Sensor sensor = os.get();
-                    SensorValue.SensorValueId svId = new SensorValue.SensorValueId();
+            Map<Byte, Sensor> sensorsMap = device.getSensorsMap();
+            for (SensorValueCmd cmd : deviceValuesCmd.getSensorValues()) { // For every sensorValue cmd
+
+                Byte number = cmd.getSensorNumber();
+                Sensor sensor = sensorsMap.get(number);
+                if (sensor != null) { // If this sensor from cmd is really exists in the device
+                    Double value = cmd.getValue();
+
                     // Create id = DateTime + Sensor
-                    svId.setLocalDateTime(LocalDateTime.now());
-                    svId.setSensor(sensor);
+                    SensorValue.SensorValueId svId = new SensorValue.SensorValueId(sensor, LocalDateTime.now());
+
                     // Create SensorValue
-                    SensorValue sv = new SensorValue();
-                    sv.setId(svId);
-                    sv.setValue(value);
+                    SensorValue sv = new SensorValue(svId, value);
+
                     sensorValueRepository.save(sv);
 
                 } else {
                     logger.info(String.format(
-                            //"No such sensor present (Device serial numer='%s', sensor number = '%d')",
-                            val1,
-                            device.getSerialNumber(), sensorNumber));
+                            "No such sensor present (Device serial numer='%s', sensor number = '%d')",
+                            //val1,
+                            deviceSerialNumber, number));
                 }
             }
         } else {
-            //TODO add to log
-        }*/
+            logger.info(String.format(
+                    "No such device present (serial number='%s')",
+                    //val1,
+                    deviceSerialNumber));
+        }
     }
 }
