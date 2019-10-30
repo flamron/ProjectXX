@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class SensorValue {
+public class SensorValue implements Serializable {
 
     @EmbeddedId
     private SensorValueId id;

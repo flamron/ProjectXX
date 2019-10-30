@@ -1,0 +1,10 @@
+select s.name as 'Sensor name', s.number as 'Sensor number' , d.serial_number as 'Device S/N',
+dt.name as 'device type', dm.name as 'model', m.name as 'производитель', op.short_name, op.full_name,
+mu.full_name as 'Единица измерения'
+from sensor s
+join device d on s.device_id=d.id
+join device_type dt on d.device_type_id=dt.id
+join device_model dm on d.device_model_id=dm.id
+join observation_point op on d.observation_point_id=op.id
+join manufacturer m on dm.manufacturer_id=m.id
+join measure_unit mu on mu.id=s.measure_unit_id;

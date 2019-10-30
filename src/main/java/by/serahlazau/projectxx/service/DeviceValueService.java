@@ -3,8 +3,10 @@ package by.serahlazau.projectxx.service;
 import by.serahlazau.projectxx.cmd.DeviceValuesCmd;
 import by.serahlazau.projectxx.cmd.SensorValueCmd;
 import by.serahlazau.projectxx.pojo.Device;
+import by.serahlazau.projectxx.pojo.DeviceModel;
 import by.serahlazau.projectxx.pojo.Sensor;
 import by.serahlazau.projectxx.pojo.SensorValue;
+import by.serahlazau.projectxx.repo.DeviceModelRepository;
 import by.serahlazau.projectxx.repo.DeviceRepository;
 import by.serahlazau.projectxx.repo.SensorRepository;
 import by.serahlazau.projectxx.repo.SensorValueRepository;
@@ -79,5 +81,21 @@ public class DeviceValueService {
                     //val1,
                     deviceSerialNumber));
         }
+    }
+
+    @Autowired
+    DeviceModelService deviceModelService;
+
+
+    public void addNewTest(Integer integer) {
+        final Optional<DeviceModel> byId = deviceModelService.findById(Long.valueOf(integer));
+        if (byId.isPresent()) {
+            final DeviceModel deviceModel = byId.get();
+            logger.info(deviceModel.getName());
+        }
+        else {
+            logger.info("Нет такого");
+        }
+
     }
 }

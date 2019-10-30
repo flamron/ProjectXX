@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -29,7 +31,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @Entity
-public class Sensor {
+public class Sensor implements Serializable {
 
    /* @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
