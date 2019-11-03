@@ -10,6 +10,7 @@ import by.serahlazau.projectxx.repo.DeviceModelRepository;
 import by.serahlazau.projectxx.repo.DeviceRepository;
 import by.serahlazau.projectxx.repo.SensorRepository;
 import by.serahlazau.projectxx.repo.SensorValueRepository;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.tomcat.jni.Local;
@@ -69,8 +70,13 @@ public class DeviceValueService {
                     // Create SensorValue
                     SensorValue sv = new SensorValue(svId, value);
 
-                    sensorValueRepository.save(sv);
-                    //sensorValueRepository.saveOrUpdate(sv);
+                    try {
+                        sensorValueRepository.save(sv);
+                    } catch (Exception ignore) {
+                        //logger.info(ex.getMessage());
+                    }
+                    //logger.info(dt.toLocalTime() + " " + deviceSerialNumber + " " + value);
+
 
                 } else {
                     logger.info(String.format(
@@ -96,8 +102,7 @@ public class DeviceValueService {
         if (byId.isPresent()) {
             final DeviceModel deviceModel = byId.get();
             logger.info(deviceModel.getName());
-        }
-        else {
+        } else {
             logger.info("Нет такого");
         }
 

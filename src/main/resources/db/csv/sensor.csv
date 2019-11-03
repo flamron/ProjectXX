@@ -45,3 +45,5 @@ number,device_id,name,measure_unit_id
 1,28,Температура,6
 1,29,Температура,6
 1,30,Температура,6
+0,31,water sensor,3
+0,32,water sensor,3
