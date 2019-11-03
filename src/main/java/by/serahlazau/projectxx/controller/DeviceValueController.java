@@ -19,10 +19,10 @@ public class DeviceValueController {
     @Autowired
     DeviceValueService service;
 
-    /*@PostMapping("/add")
+    @PostMapping("/add")
     public void createNewDeviceValues(@RequestBody DeviceValuesCmd deviceValuesCmd) {
         service.addNewDeviceValues(deviceValuesCmd);
-    }*/
+    }
 
     @GetMapping("/add")
     public void createNewDeviceValues(@RequestParam Integer integer) {

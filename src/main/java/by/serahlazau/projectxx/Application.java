@@ -11,16 +11,10 @@ import java.util.Map;
 
 @SpringBootApplication
 @EnableSwagger2
-@EnableCaching
-//@PropertySource("classpath:logMessages.properties")
 public class Application {
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
 
-    /*@Bean
-    public Map<String, String> logMessages() {
-
-    }*/
 }

@@ -95,8 +95,7 @@
             `device_id` BIGINT,
             `name` VARCHAR(255),
             `measure_unit_id` BIGINT,
-            PRIMARY KEY (`device_id`, `number`),
-            UNIQUE KEY `device_id` (`device_id`, `number`)
+            PRIMARY KEY (`device_id`, `number`)
             );
         </sql>
     </changeSet>
@@ -107,10 +106,9 @@
             (
             `sensor_device_id` BIGINT,
             `sensor_number` TINYINT,
-            `local_date_time` TIMESTAMP,
+            `local_date_time` datetime(6),
             `value` DOUBLE,
-            PRIMARY KEY (`sensor_number`, `sensor_device_id`, `local_date_time`),
-            UNIQUE `sensor_number` (`sensor_number`, `sensor_device_id`, `local_date_time`)
+            PRIMARY KEY (`sensor_number`, `sensor_device_id`, `local_date_time`)
             );
         </sql>
     </changeSet>
@@ -150,4 +148,43 @@
             ADD UNIQUE INDEX `short_name_UNIQUE` (`short_name` ASC);
         </sql>
     </changeSet>
+
+    <changeSet id="14" author="Renat">
+        <sql>
+            CREATE TABLE `role`
+            (
+            `id`      SERIAL,
+            role_name VARCHAR(15),
+            PRIMARY KEY (`id`),
+            UNIQUE KEY `role_name_UNIQUE` (`role_name`)
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="15" author="Renat">
+        <sql>
+            CREATE TABLE `user`
+            (
+            `id` SERIAL,
+            `first_name` VARCHAR(255),
+            `last_name` VARCHAR(255),
+            `email` VARCHAR(255),
+            `password` VARCHAR(255),
+            PRIMARY KEY (`id`),
+            UNIQUE KEY `email_UNIQUE` (`email`)
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="16" author="Renat">
+        <sql>
+            CREATE TABLE `user_role`
+            (
+            `role_id` BIGINT,
+            `user_id` BIGINT,
+            UNIQUE KEY `user_id` (`user_id`, `role_id`)
+            );
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

@@ -14,13 +14,8 @@ public class Root
     @Autowired
     DeviceTypeService deviceTypeService;
 
-    /*@Value("${deviceValueService.NoSuchSensorPresent}")
-    String val1;*/
-
     @RequestMapping("/")
     String home() {
-        //deviceTypeService.createNewDeviceType();
-
         return "Hello";
     }
 

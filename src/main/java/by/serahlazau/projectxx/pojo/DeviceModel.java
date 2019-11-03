@@ -2,9 +2,9 @@ package by.serahlazau.projectxx.pojo;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Immutable;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
@@ -13,15 +13,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @Entity
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY, region = "device")
+@Immutable
 public class DeviceModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,9 +31,5 @@ public class DeviceModel implements Serializable {
 
     @ManyToOne
     private Manufacturer manufacturer;
-
-    @ToString.Exclude
-    @OneToMany(mappedBy = "deviceModel")
-    private Set<Device> devices = new HashSet<>();
 
 }

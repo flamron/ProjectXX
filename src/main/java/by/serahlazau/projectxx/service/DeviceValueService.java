@@ -12,6 +12,7 @@ import by.serahlazau.projectxx.repo.SensorRepository;
 import by.serahlazau.projectxx.repo.SensorValueRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySources;
@@ -47,9 +48,7 @@ public class DeviceValueService {
     public void addNewDeviceValues(DeviceValuesCmd deviceValuesCmd) {
 
         String deviceSerialNumber = deviceValuesCmd.getSerialNumber();
-        logger.info("Begin");
         Optional<Device> od = deviceRepository.findBySerialNumber(deviceSerialNumber);
-        logger.info("End");
         if (od.isPresent()) {  // If device serial number is valid
             Device device = od.get();
             Map<Byte, Sensor> sensorsMap = device.getSensorsMap();
@@ -61,12 +60,17 @@ public class DeviceValueService {
                     Double value = cmd.getValue();
 
                     // Create id = DateTime + Sensor
-                    SensorValue.SensorValueId svId = new SensorValue.SensorValueId(sensor, LocalDateTime.now());
+                    //SensorValue.SensorValueId svId = new SensorValue.SensorValueId(sensor, LocalDateTime.now());
+                    LocalDateTime dt = cmd.getLocalDateTime();
+                    if (dt == null)
+                        dt = LocalDateTime.now();
+                    SensorValue.SensorValueId svId = new SensorValue.SensorValueId(sensor, dt);
 
                     // Create SensorValue
                     SensorValue sv = new SensorValue(svId, value);
 
                     sensorValueRepository.save(sv);
+                    //sensorValueRepository.saveOrUpdate(sv);
 
                 } else {
                     logger.info(String.format(

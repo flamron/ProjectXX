@@ -1,22 +1,20 @@
 package by.serahlazau.projectxx.pojo;
 
-import by.serahlazau.projectxx.pojo.Device;
-import by.serahlazau.projectxx.pojo.UnitOfMeasure;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Immutable;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKey;
@@ -24,18 +22,15 @@ import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @Entity
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY, region = "device")
+@Immutable
 public class Sensor implements Serializable {
-
-   /* @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;*/
 
     @EmbeddedId
     SensorId id;
@@ -47,6 +42,7 @@ public class Sensor implements Serializable {
     @JoinColumn(name = "measure_unit_id")
     private UnitOfMeasure unitOfMeasure;
 
+    @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "id.sensor", fetch = FetchType.LAZY)
     @MapKey(name = "id.localDateTime")
     private Map<LocalDateTime, SensorValue> values = new HashMap<>();

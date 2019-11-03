@@ -60,4 +60,28 @@
         </loadData>
     </changeSet>
 
+    <changeSet id="sqlData_role" author="Renat">
+        <loadData
+                file="src/main/resources/db/csv/role.csv"
+                tableName="role"
+                encoding="UTF-8">
+        </loadData>
+    </changeSet>
+
+    <changeSet id="sqlData_user" author="Renat">
+        <loadData
+                file="src/main/resources/db/csv/user.csv"
+                tableName="user"
+                encoding="UTF-8">
+        </loadData>
+    </changeSet>
+
+    <changeSet id="sqlData_user_role" author="Renat">
+        <loadData
+                file="src/main/resources/db/csv/user_role.csv"
+                tableName="user_role"
+                encoding="UTF-8">
+        </loadData>
+    </changeSet>
+
 </databaseChangeLog>

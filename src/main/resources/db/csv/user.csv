@@ -1,0 +1,5 @@
+first_name,last_name,email,password
+admin,admin,admin@tut.by,$2a$10$pgI9WfDwVnYsmFOfmydpUuTDFvqKFjQ6HIjAT21.AQNxbUY93CvW6
+user,user,user@tut.by,$2a$10$G9qLRCo3i1.pwODfnv5uBOsHiuTbD9oBfzFT3dKPwUS3pmGuzieSy
+guest,guest,guest@tut.by,$2a$10$PGV1XHcJ.uEf.bGpM9eNr.aSftPQiOBSAo6T.xImBTJ9860Ta6bhC
+Renat,Serahlazau,renat.seroglazov@gmail.com,$2a$10$y/hf82BQwl4nmeir062syeOnw8YU0YKohb4kWVNlHskvQlCdSBqgi
