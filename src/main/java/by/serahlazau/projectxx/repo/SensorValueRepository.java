@@ -4,5 +4,4 @@ import by.serahlazau.projectxx.pojo.SensorValue;
 import org.springframework.data.repository.CrudRepository;
 
 public interface SensorValueRepository extends CrudRepository<SensorValue, SensorValue.SensorValueId> {
-    //public void saveOrUpdate(SensorValue sensorValue);
 }
