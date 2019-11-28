@@ -33,8 +33,8 @@ public class DeviceValueService {
     @Autowired
     DeviceRepository deviceRepository;
 
-    @Autowired
-    SensorRepository sensorRepository;
+    //@Autowired
+    //SensorRepository sensorRepository;
 
     @Autowired
     SensorValueRepository sensorValueRepository;
@@ -93,18 +93,6 @@ public class DeviceValueService {
         }
     }
 
-    @Autowired
-    DeviceModelService deviceModelService;
-
-
-    public void addNewTest(Integer integer) {
-        final Optional<DeviceModel> byId = deviceModelService.findById(Long.valueOf(integer));
-        if (byId.isPresent()) {
-            final DeviceModel deviceModel = byId.get();
-            logger.info(deviceModel.getName());
-        } else {
-            logger.info("Нет такого");
-        }
-
-    }
+    //@Autowired
+    //DeviceModelService deviceModelService;
 }
