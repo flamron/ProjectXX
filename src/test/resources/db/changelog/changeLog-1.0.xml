@@ -1,0 +1,190 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="0" author="Renat">
+        <sql>
+            ALTER DATABASE `projectxx_test`
+            CHARACTER SET = utf8mb4
+            COLLATE = utf8mb4_unicode_ci;
+        </sql>
+    </changeSet>
+
+    <changeSet id="1" author="Renat">
+        <sql>
+            CREATE TABLE `device_model`
+            (
+            `id` SERIAL,
+            `name` VARCHAR(255),
+            `manufacturer_id` BIGINT,
+            PRIMARY KEY (id)
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="2" author="Renat">
+        <sql>
+            CREATE TABLE `manufacturer`
+            (
+            `id` SERIAL,
+            `name` VARCHAR(255),
+            PRIMARY KEY (id)
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="3" author="Renat">
+        <sql>
+            CREATE TABLE `device`
+            (
+            `id` SERIAL,
+            `serial_number` VARCHAR(255) NOT NULL UNIQUE,
+            `device_type_id` BIGINT,
+            `device_model_id` BIGINT,
+            `observation_point_id` BIGINT,
+            PRIMARY KEY (`id`)
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="4" author="Renat">
+        <sql>
+            CREATE TABLE `device_type`
+            (
+            `id` SERIAL,
+            `name` VARCHAR(255),
+            PRIMARY KEY (id)
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="5" author="Renat">
+        <sql>
+            CREATE TABLE `measure_unit`
+            (
+            `id` SERIAL,
+            `short_name` VARCHAR(10),
+            `full_name` VARCHAR(255),
+            PRIMARY KEY (id)
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="6" author="Renat">
+        <sql>
+            CREATE TABLE `observation_point`
+            (
+            `id` SERIAL,
+            `short_name` VARCHAR(10),
+            `full_name` VARCHAR(255),
+            `latitude` FLOAT(7, 4),
+            `longitude` FLOAT(7, 4),
+            `high` FLOAT,
+            PRIMARY KEY (id)
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="7" author="Renat">
+        <sql>
+            CREATE TABLE `sensor`
+            (
+            `number` TINYINT,
+            `device_id` BIGINT,
+            `name` VARCHAR(255),
+            `measure_unit_id` BIGINT,
+            PRIMARY KEY (`device_id`, `number`)
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="8" author="Renat">
+        <sql>
+            CREATE TABLE `sensor_value`
+            (
+            `sensor_device_id` BIGINT,
+            `sensor_number` TINYINT,
+            `local_date_time` datetime(6),
+            `value` DOUBLE,
+            PRIMARY KEY (`sensor_number`, `sensor_device_id`, `local_date_time`)
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="9" author="Renat">
+        <sql>
+            ALTER TABLE `device_model`
+            ADD UNIQUE INDEX `name_UNIQUE` (`name` ASC);
+        </sql>
+    </changeSet>
+
+    <changeSet id="10" author="Renat">
+        <sql>
+            ALTER TABLE `device_type`
+            ADD UNIQUE INDEX `name_UNIQUE` (`name` ASC);
+        </sql>
+    </changeSet>
+
+    <changeSet id="11" author="Renat">
+        <sql>
+            ALTER TABLE `manufacturer`
+            ADD UNIQUE INDEX `name_UNIQUE` (`name` ASC);
+        </sql>
+    </changeSet>
+
+    <changeSet id="12" author="Renat">
+        <sql>
+            ALTER TABLE `projectxx_test`.`measure_unit`
+            ADD UNIQUE INDEX `short_name_UNIQUE` (`short_name` ASC),
+            ADD UNIQUE INDEX `full_name_UNIQUE` (`full_name` ASC);
+        </sql>
+    </changeSet>
+
+    <changeSet id="13" author="Renat">
+        <sql>
+            ALTER TABLE `observation_point`
+            ADD UNIQUE INDEX `short_name_UNIQUE` (`short_name` ASC);
+        </sql>
+    </changeSet>
+
+    <changeSet id="14" author="Renat">
+        <sql>
+            CREATE TABLE `role`
+            (
+            `id`      SERIAL,
+            role_name VARCHAR(15),
+            PRIMARY KEY (`id`),
+            UNIQUE KEY `role_name_UNIQUE` (`role_name`)
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="15" author="Renat">
+        <sql>
+            CREATE TABLE `user`
+            (
+            `id` SERIAL,
+            `first_name` VARCHAR(255),
+            `last_name` VARCHAR(255),
+            `email` VARCHAR(255),
+            `password` VARCHAR(255),
+            PRIMARY KEY (`id`),
+            UNIQUE KEY `email_UNIQUE` (`email`)
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="16" author="Renat">
+        <sql>
+            CREATE TABLE `user_role`
+            (
+            `role_id` BIGINT,
+            `user_id` BIGINT,
+            UNIQUE KEY `user_id` (`user_id`, `role_id`)
+            );
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

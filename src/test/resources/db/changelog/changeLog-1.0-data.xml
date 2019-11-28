@@ -1,0 +1,87 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="sqlData_manufacturer" author="Renat">
+        <loadData
+                file="src/test/resources/db/csv/manufacturer.csv"
+                tableName="manufacturer"
+                encoding="UTF-8">
+        </loadData>
+    </changeSet>
+
+    <changeSet id="sqlData_device" author="Renat">
+        <loadData
+                file="src/test/resources/db/csv/device.csv"
+                tableName="device"
+                encoding="UTF-8">
+        </loadData>
+    </changeSet>
+
+    <changeSet id="sqlData_device_type" author="Renat">
+        <loadData
+                file="src/test/resources/db/csv/deviceType.csv"
+                tableName="device_type"
+                encoding="UTF-8">
+        </loadData>
+    </changeSet>
+
+    <changeSet id="sqlData_device_model" author="Renat">
+        <loadData
+                file="src/test/resources/db/csv/deviceModel.csv"
+                tableName="device_model"
+                encoding="UTF-8">
+        </loadData>
+    </changeSet>
+
+    <changeSet id="sqlData_observation_point" author="Renat">
+        <loadData
+                file="src/test/resources/db/csv/observationPoint.csv"
+                tableName="observation_point"
+                encoding="UTF-8">
+        </loadData>
+    </changeSet>
+
+    <changeSet id="sqlData_sensor" author="Renat">
+        <loadData
+                file="src/test/resources/db/csv/sensor.csv"
+                tableName="sensor"
+                encoding="UTF-8">
+        </loadData>
+    </changeSet>
+
+    <changeSet id="sqlData_measure_unit" author="Renat">
+        <loadData
+                file="src/test/resources/db/csv/unitOfMeasure.csv"
+                tableName="measure_unit"
+                encoding="UTF-8">
+        </loadData>
+    </changeSet>
+
+    <changeSet id="sqlData_role" author="Renat">
+        <loadData
+                file="src/test/resources/db/csv/role.csv"
+                tableName="role"
+                encoding="UTF-8">
+        </loadData>
+    </changeSet>
+
+    <changeSet id="sqlData_user" author="Renat">
+        <loadData
+                file="src/test/resources/db/csv/user.csv"
+                tableName="user"
+                encoding="UTF-8">
+        </loadData>
+    </changeSet>
+
+    <changeSet id="sqlData_user_role" author="Renat">
+        <loadData
+                file="src/test/resources/db/csv/user_role.csv"
+                tableName="user_role"
+                encoding="UTF-8">
+        </loadData>
+    </changeSet>
+
+</databaseChangeLog>

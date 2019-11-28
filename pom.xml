@@ -37,6 +37,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
 
         <!-- This is nessessery for Ehcahe3-->
         <dependency>
@@ -148,20 +153,20 @@
                             <password>root</password>
                         </configuration>
                     </execution>
-                    <!--<execution>
+                    <execution>
                         <id>create_database_junit</id>
                         <goals>
                             <goal>update</goal>
                         </goals>
                         <phase>process-sources</phase>
                         <configuration>
-                            <changeLogFile>src/main/resources/changeLog-master.xml</changeLogFile>
+                            <changeLogFile>src/test/resources/db/changelog/changeLog-master.xml</changeLogFile>
                             <driver>com.mysql.jdbc.Driver</driver>
-                            <url>jdbc:mysql://localhost:3306/hello_mysql_junit?createDatabaseIfNotExist=true&amp;useSSL=false</url>
+                            <url>jdbc:mysql://localhost:3306/projectxx_test?createDatabaseIfNotExist=true&amp;useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8</url>
                             <username>root</username>
                             <password>root</password>
                         </configuration>
-                    </execution>-->
+                    </execution>
                 </executions>
             </plugin>
 
