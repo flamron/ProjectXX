@@ -22,7 +22,7 @@
         <lombok.version>1.18.10</lombok.version>
         <hibernate.version>5.4.3.Final</hibernate.version>
         <mysql.version>5.1.47</mysql.version>
-        <log4j.version>2.12.1</log4j.version>
+        <log4j.version>2.13.2</log4j.version>
         <swagger.version>2.9.2</swagger.version>
     </properties>
 
